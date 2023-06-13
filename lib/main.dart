@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: ChangeNotifierProvider<MenuInfo>(
-        create: (context) => MenuInfo(menuType: MenuType.Clock, title: 'Clock', imageSource: 'assets/clock-icon.png'),
+        create: (context) => MenuInfo(menuType: MenuType.Clock, title: 'Clock', imageSource: 'assets/clock_icon.png'),
         child: const HomePage(),
       ),
     );

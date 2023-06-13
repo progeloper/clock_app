@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:clock_app/src/models/menu-info.dart';
+import 'package:clock_app/src/palette.dart';
 import 'package:clock_app/widgets/clock_view.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -38,7 +39,10 @@ class _HomePageState extends State<HomePage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
-              children: menuItems.map((e) => buildTextButton(currentMenuInfo: e)).toList(),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: menuItems
+                  .map((e) => buildTextButton(currentMenuInfo: e))
+                  .toList(),
             ),
             const VerticalDivider(
               color: Colors.white54,
@@ -159,28 +163,36 @@ class _HomePageState extends State<HomePage> {
   Widget buildTextButton({
     required MenuInfo currentMenuInfo,
   }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: TextButton(
-        onPressed: () {
-          var menuInfo = Provider.of<MenuInfo>(context);
-          menuInfo.updateMenu(currentMenuInfo);
-        },
-        child: Column(
-          children: [
-            Image.asset(
-              currentMenuInfo.imageSource,
-              scale: 1.5,
-            ),
-            Text(
-              currentMenuInfo.title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontFamily: 'Avenir',
+    return Consumer<MenuInfo>(
+      builder: (context, value, child) => Container(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        decoration: BoxDecoration(
+          color: (currentMenuInfo.menuType == value.menuType)
+              ? Palette.menuBackgroundColor
+              : Colors.transparent,
+          borderRadius: const BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10),),
+        ),
+        child: TextButton(
+          onPressed: () {
+            var menuInfo = Provider.of<MenuInfo>(context, listen: false);
+            menuInfo.updateMenu(currentMenuInfo);
+          },
+          child: Column(
+            children: [
+              Image.asset(
+                currentMenuInfo.imageSource,
+                scale: 1.5,
               ),
-            ),
-          ],
+              Text(
+                currentMenuInfo.title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontFamily: 'Avenir',
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
