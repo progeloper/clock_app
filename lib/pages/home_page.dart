@@ -28,106 +28,160 @@ class _HomePageState extends State<HomePage> {
     if (!timeZoneString.startsWith('-')) offsetSign = '+';
     return Scaffold(
       backgroundColor: const Color(0xFF2D2F41),
-      body: Row(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: const Column(
+      body: SafeArea(
+        child: Row(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                buildTextButton(asset: 'assets/clock_icon.png', label: 'Clock'),
+                buildTextButton(asset: 'assets/alarm_icon.png', label: 'Alarm'),
+                buildTextButton(asset: 'assets/timer_icon.png', label: 'Timer'),
+                buildTextButton(
+                    asset: 'assets/stopwatch_icon.png', label: 'Stopwatch'),
+              ],
+            ),
+            const VerticalDivider(
+              color: Colors.white54,
+              width: 1,
+            ),
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
+                color: const Color(0xFF2D2F41),
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FlutterLogo(),
-                    Text(
-                      'Clock',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
+                    const Flexible(
+                      flex: 1,
+                      fit: FlexFit.tight,
+                      child: Text(
+                        'Clock',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontFamily: 'Avenir',
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 2,
+                      fit: FlexFit.tight,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            DateFormat.Hm().format(dateTime),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 64,
+                                fontFamily: 'Avenir',
+                                fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            DateFormat.MMMEd().format(dateTime),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontFamily: 'Avenir',
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      flex: 4,
+                      fit: FlexFit.tight,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: ClockView(
+                          size: MediaQuery.of(context).size.height / 4,
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 2,
+                      fit: FlexFit.tight,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Timezone',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontFamily: 'Avenir',
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.language,
+                                color: Colors.white,
+                              ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              Text(
+                                dateTime.timeZoneName,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: 'Avenir',
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                '(UTC $offsetSign $timeZoneString)',
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontFamily: 'Avenir',
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
-          VerticalDivider(
-            color: Colors.white54,
-            width: 1,
-          ),
-          Expanded(
-            child: Container(
-              alignment: Alignment.center,
-              color: const Color(0xFF2D2F41),
-              padding: const EdgeInsets.all(32),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Clock',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  Text(
-                    DateFormat.Hm().format(dateTime),
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 64,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    DateFormat.MMMEd().format(dateTime),
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  const ClockView(),
-                  const Text(
-                    'Timezone',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.language,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Text(
-                        '${dateTime.timeZoneName}',
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w400),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        '(UTC $offsetSign $timeZoneString)',
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  )
-                ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildTextButton({
+    required String asset,
+    required String label,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: TextButton(
+        onPressed: () {},
+        child: Column(
+          children: [
+            Image.asset(
+              asset,
+              scale: 1.5,
+            ),
+            Text(
+              label,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontFamily: 'Avenir',
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
