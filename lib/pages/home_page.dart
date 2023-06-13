@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: menuItems
                   .map((e) => buildTextButton(currentMenuInfo: e))
                   .toList(),
@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
           color: (currentMenuInfo.menuType == value.menuType)
               ? Palette.menuBackgroundColor
               : Colors.transparent,
-          borderRadius: const BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10),),
+          borderRadius: const BorderRadius.all(Radius.circular(24)),
         ),
         child: TextButton(
           onPressed: () {
