@@ -35,7 +35,7 @@ class _ClockViewState extends State<ClockView> {
 }
 
 class ClockPainter extends CustomPainter {
-  var dateTime = DateTime.now().subtract(Duration(hours: 12));
+  var dateTime = DateTime.now();
   //for seconds 60s = one rotation, 1s = 360/60 = 6
   //for minutes 60m = one rotation, 1m = 360/60 = 6
   //for hours 12h = one rotation, 1hr = 360/12 = 30
