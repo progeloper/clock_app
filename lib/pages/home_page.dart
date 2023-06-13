@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:clock_app/src/models/menu-info.dart';
 import 'package:clock_app/widgets/clock_view.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -165,7 +167,10 @@ class _HomePageState extends State<HomePage> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          var menuInfo = Provider.of<MenuInfo>(context);
+          menuInfo.updateMenu(currentMenuInfo);
+        },
         child: Column(
           children: [
             Image.asset(

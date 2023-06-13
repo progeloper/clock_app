@@ -1,5 +1,8 @@
 import 'package:clock_app/pages/home_page.dart';
+import 'package:clock_app/src/enums.dart';
+import 'package:clock_app/src/models/menu-info.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,8 +21,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF2D2F41)),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: ChangeNotifierProvider<MenuInfo>(
+        create: (context) => MenuInfo(menuType: MenuType.Clock, title: 'Clock', imageSource: 'assets/clock-icon.png'),
+        child: const HomePage(),
+      ),
     );
   }
 }
-
