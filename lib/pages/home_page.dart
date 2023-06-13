@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../src/data.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -36,13 +38,7 @@ class _HomePageState extends State<HomePage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
-              children: [
-                buildTextButton(asset: 'assets/clock_icon.png', label: 'Clock'),
-                buildTextButton(asset: 'assets/alarm_icon.png', label: 'Alarm'),
-                buildTextButton(asset: 'assets/timer_icon.png', label: 'Timer'),
-                buildTextButton(
-                    asset: 'assets/stopwatch_icon.png', label: 'Stopwatch'),
-              ],
+              children: menuItems.map((e) => buildTextButton(currentMenuInfo: e)).toList(),
             ),
             const VerticalDivider(
               color: Colors.white54,
@@ -161,8 +157,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildTextButton({
-    required String asset,
-    required String label,
+    required MenuInfo currentMenuInfo,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -174,11 +169,11 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             Image.asset(
-              asset,
+              currentMenuInfo.imageSource,
               scale: 1.5,
             ),
             Text(
-              label,
+              currentMenuInfo.title,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
