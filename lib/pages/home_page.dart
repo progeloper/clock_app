@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:clock_app/src/enums.dart';
 import 'package:clock_app/src/models/menu-info.dart';
 import 'package:clock_app/src/palette.dart';
 import 'package:clock_app/widgets/clock_view.dart';
@@ -8,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../src/data.dart';
+import 'clock_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -49,7 +51,18 @@ class _HomePageState extends State<HomePage> {
               width: 1,
             ),
             Expanded(
-              child: ClockPage(dateTime: dateTime, offsetSign: offsetSign, timeZoneString: timeZoneString),
+              child: Consumer<MenuInfo>(
+                builder: (BuildContext context, MenuInfo value, Widget? child) {
+                  if (value.menuType == MenuType.Clock) {
+                    return ClockPage(
+                        dateTime: dateTime,
+                        offsetSign: offsetSign,
+                        timeZoneString: timeZoneString);
+                  } else{
+                    return Container();
+                  }
+                },
+              ),
             ),
           ],
         ),
@@ -95,5 +108,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
