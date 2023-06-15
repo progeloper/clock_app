@@ -2,9 +2,16 @@ import 'package:clock_app/pages/home_page.dart';
 import 'package:clock_app/src/enums.dart';
 import 'package:clock_app/src/models/menu-info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  var initializationSettingsAndroid = AndroidInitializationSettings('flutter_icon');
+  var initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,);
   runApp(const MyApp());
 }
 
