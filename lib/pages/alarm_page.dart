@@ -1,4 +1,5 @@
 import 'package:clock_app/src/palette.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -29,21 +30,21 @@ class _AlarmPageState extends State<AlarmPage> {
           ),
           Expanded(
             child: ListView(
-              children: alarmItems.map((e) {
+              clipBehavior: Clip.none,
+              children: alarmItems.map<Widget>((e) {
                 return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10.0),
+                  margin: const EdgeInsets.symmetric(vertical: 12.0),
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: e.gradientColors),
+                    gradient: LinearGradient(colors: e.gradientColors),
                     boxShadow: [
                       BoxShadow(
                         color: e.gradientColors.last.withOpacity(0.4),
                         blurRadius: 8,
                         spreadRadius: 4,
                         offset: const Offset(4, 4),
-                      )
+                      ),
                     ],
                     borderRadius: const BorderRadius.all(Radius.circular(24)),
                   ),
@@ -104,7 +105,7 @@ class _AlarmPageState extends State<AlarmPage> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.keyboard_arrow_down,
                             color: Colors.white,
                           ),
@@ -113,7 +114,49 @@ class _AlarmPageState extends State<AlarmPage> {
                     ],
                   ),
                 );
-              }).toList(),
+              }).followedBy(
+                [
+                  DottedBorder(
+                    color: Colors.white,
+                    borderType: BorderType.RRect,
+                    strokeWidth: 3,
+                    dashPattern: const [10,5],
+                    radius: const Radius.circular(24),
+                    child: Container(
+                      padding:
+                          const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: Palette.clockBG,
+                        borderRadius: const BorderRadius.all(Radius.circular(24)),
+                      ),
+                      child: InkWell(
+                        onTap: () {},
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset('assets/add_alarm.png'),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              const Text(
+                                'Add alarm',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ).toList(),
             ),
           ),
         ],
