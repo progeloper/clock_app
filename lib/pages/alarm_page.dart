@@ -1,8 +1,11 @@
+import 'package:clock_app/src/models/alarm_info.dart';
 import 'package:clock_app/src/palette.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 
+import '../main.dart';
 import '../src/data.dart';
 
 class AlarmPage extends StatefulWidget {
@@ -13,6 +16,35 @@ class AlarmPage extends StatefulWidget {
 }
 
 class _AlarmPageState extends State<AlarmPage> {
+  Future<void> _scheduleDailyTenAMNotification(AlarmInfo alarm) async {
+    await flutterLocalNotificationsPlugin.schedule(
+      id,
+      alarm.name ?? 'Alarm',
+      alarm.name ?? 'Alarm',
+      alarm.time,
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+            'daily notification channel id', 'daily notification channel name',
+            channelDescription: 'daily notification description'),
+      ),
+    );
+
+    // schedule(
+    //     0,
+    //     'daily scheduled notification title',
+    //     'daily scheduled notification body',
+    //     _nextInstanceOfTime(),
+    //     const NotificationDetails(
+    //       android: AndroidNotificationDetails('daily notification channel id',
+    //           'daily notification channel name',
+    //           channelDescription: 'daily notification description'),
+    //     ),
+    //     androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+    //     uiLocalNotificationDateInterpretation:
+    //     UILocalNotificationDateInterpretation.absoluteTime,
+    //     matchDateTimeComponents: DateTimeComponents.time);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -120,14 +152,15 @@ class _AlarmPageState extends State<AlarmPage> {
                     color: Colors.white,
                     borderType: BorderType.RRect,
                     strokeWidth: 3,
-                    dashPattern: const [10,5],
+                    dashPattern: const [10, 5],
                     radius: const Radius.circular(24),
                     child: Container(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
                       decoration: BoxDecoration(
                         color: Palette.clockBG,
-                        borderRadius: const BorderRadius.all(Radius.circular(24)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(24)),
                       ),
                       child: InkWell(
                         onTap: () {},
