@@ -12,6 +12,8 @@ class ClockView extends StatefulWidget {
 }
 
 class _ClockViewState extends State<ClockView> {
+  late Timer _timer;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,12 +30,19 @@ class _ClockViewState extends State<ClockView> {
 
   @override
   void initState() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {});
     });
     super.initState();
   }
+
+  @override
+  void dispose(){
+    _timer.cancel();
+    super.dispose();
+  }
 }
+
 
 class ClockPainter extends CustomPainter {
   var dateTime = DateTime.now();

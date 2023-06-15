@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:clock_app/pages/alarm_page.dart';
 import 'package:clock_app/src/enums.dart';
 import 'package:clock_app/src/models/menu-info.dart';
 import 'package:clock_app/src/palette.dart';
@@ -58,6 +59,8 @@ class _HomePageState extends State<HomePage> {
                         dateTime: dateTime,
                         offsetSign: offsetSign,
                         timeZoneString: timeZoneString);
+                  } else if(value.menuType == MenuType.Alarm){
+                    return const AlarmPage();
                   } else{
                     return Container();
                   }

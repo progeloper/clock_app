@@ -1,4 +1,5 @@
 import 'package:clock_app/src/enums.dart';
+import 'package:clock_app/src/palette.dart';
 
 import 'models/alarm_info.dart';
 import 'models/menu-info.dart';
@@ -11,7 +12,7 @@ List<MenuInfo> menuItems = [
 ];
 
 List<AlarmInfo> alarmItems = [
-  AlarmInfo(time: DateTime.now().add(Duration(hours: 1)), isActive: true),
-  AlarmInfo(time: DateTime.now().add(Duration(hours: 4)), isActive: true),
-  AlarmInfo(time: DateTime.now().add(Duration(minutes: 150)), isActive: true),
+  AlarmInfo(time: DateTime.now().add(Duration(hours: 1)), isActive: true, gradientColors: GradientTemplate.gradientTemplate[0].colors),
+  AlarmInfo(time: DateTime.now().add(Duration(hours: 4)), isActive: true, gradientColors: GradientTemplate.gradientTemplate[1].colors),
+  AlarmInfo(time: DateTime.now().add(Duration(minutes: 150)), isActive: true, gradientColors: GradientTemplate.gradientTemplate[2].colors),
 ];
